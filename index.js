@@ -1,8 +1,18 @@
 const endPoint = "http://localhost:3000/api/v1/workouts"
 
-document.addEventListener('DOMContentLoaded', () => {
+//document.addEventListener('DOMContentLoaded', () => {
     getWorkouts()
-})
+
+    const createWorkoutForm = document.querySelector('#create-workout-form')
+
+    createWorkoutForm.addEventListener("submit", (e) => {
+        e.preventDefault()
+        console.log(e)})
+    function createFormHandler(e) {
+        e.preventDefault()
+        console.log(e);
+    }
+//})
 
 function getWorkouts() {
     fetch(endPoint) // returns a promise and makes a get request
@@ -11,17 +21,20 @@ function getWorkouts() {
         workouts.data.forEach(workout => {
             const workoutMarkup = `
               <div data-id=${workout.id}>
-                <h3>${workout.attributes.date}</h3>
-                <h3>${workout.attributes.date}</h3>
-                <p>${workout.attributes.sets}</p>
-                <p>${workout.attributes.reps}</p>
-                <p>${workout.attributes.weight}</p>
+                <h2>${workout.attributes.client.name}</h2>
+                <h4>exercise:${workout.attributes.exercise}</h4>
+                <h4>Date:${workout.attributes.date}</h4>
+                <p>Sets:${workout.attributes.sets}</p>
+                <p>Reps:${workout.attributes.reps}</p>
+                <p>Weight:${workout.attributes.weight}</p>
                 <button data-id=${workout.id}>edit</button>
               </div>
               <br><br>`;
 
               document.querySelector('#workout-container').innerHTML +=
-              workoutMarkup
+              workoutMarkup;
         })
     })  // get access to that data
 }
+
+
